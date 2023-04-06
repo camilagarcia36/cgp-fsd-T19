@@ -1,6 +1,5 @@
 package ejercicio3;
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -16,6 +15,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
+import javax.swing.border.BevelBorder;
 
 public class FormVista extends JFrame {
 
@@ -27,6 +28,7 @@ public class FormVista extends JFrame {
 	private JCheckBox chckDiseño;
 	private JCheckBox chckProgramacion;
 	private JCheckBox chckAdm;
+	private JSlider slider;
 
 	/**
 	 * Create the frame.
@@ -82,9 +84,17 @@ public class FormVista extends JFrame {
 		chckAdm.setBounds(284, 301, 128, 23);
 		contentPane.add(chckAdm);
 
-		JSlider slider = new JSlider();
+		// Creo el slider
+		slider = new JSlider();
+		slider.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		slider.setPaintLabels(true);
+		slider.setPaintTicks(true);
+		slider.setBackground(new Color(0, 0, 0));
+		slider.setMinimum(1);
+		slider.setValue(5);
+		slider.setMajorTickSpacing(1);
 		slider.setMaximum(10);
-		slider.setBounds(94, 411, 206, 29);
+		slider.setBounds(104, 411, 221, 42);
 		contentPane.add(slider);
 
 		JLabel lblHoras = new JLabel("Horas dedicadadas en el ordenador");
@@ -107,8 +117,8 @@ public class FormVista extends JFrame {
 
 	}
 
-	
 	public void comprobarDatos() {
+
 		// Compruebo cual esta seleccionado y le doy valor al string que he creado para
 		// luego mostrarlo en pantalla.
 		String valorRB = "";
@@ -122,34 +132,34 @@ public class FormVista extends JFrame {
 			valorRB = iosRB.getText();
 		}
 
-		 //Creo un arraylist para guardar los valores de los check box. 
-	    ArrayList<String> valoresCB = new ArrayList<String>();
-	    
-	    if (chckDiseño.isSelected()) {
-	    	System.out.println(chckDiseño.getText());
+		// Creo un arraylist para guardar los valores de los check box.
+		ArrayList<String> valoresCB = new ArrayList<String>();
 
-	        valoresCB.add(chckDiseño.getText());
-	    }
-	    if (chckProgramacion.isSelected()) {
-	    	System.out.println(chckProgramacion.getText());
+		if (chckDiseño.isSelected()) {
 
-	        valoresCB.add(chckProgramacion.getText());
-	    }
-	    
-	    if (chckAdm.isSelected()) {
-	    	System.out.println(chckAdm.getText());
-	        valoresCB.add(chckAdm.getText());
-	    }
-	    
-	  //Compruebo que este seleccionado y si lo esta muestro los datos. Si no, doy un mensaje por Joption pane de que se tiene que rellenar los datos. 
-	    if (valorRB != null && !valorRB.isEmpty() && valoresCB != null && !valoresCB.isEmpty()) {
-	        System.out.println("Sistema operativo seleccionado: " + valorRB);
-	        System.out.println("Especialidades seleccionadas:");
-	        for (String valor : valoresCB) {
-	            System.out.println("- " + valor);
-	        }
-	    } else {
-	        JOptionPane.showMessageDialog(null, "Por favor, seleccione un sistema operativo y una o más especialidades.");
-	    }
+			valoresCB.add(chckDiseño.getText());
+		}
+		if (chckProgramacion.isSelected()) {
+
+			valoresCB.add(chckProgramacion.getText());
+		}
+
+		if (chckAdm.isSelected()) {
+			valoresCB.add(chckAdm.getText());
+		}
+
+		// Compruebo que este seleccionado y si lo esta muestro los datos. Si no, doy un
+		// mensaje por Joption pane de que se tiene que rellenar los datos.
+		if (valorRB != null && !valorRB.isEmpty() && valoresCB != null && !valoresCB.isEmpty()) {
+
+			JOptionPane.showMessageDialog(null,
+					"Sistema operativo seleccionado: " + valorRB + "\n" + "Especialidades seleccionadas: " + "\n" + "- "
+							+ String.join("\n- ", valoresCB) + "\n" + "Las horas dedicadas en el ordenador son: "
+							+ slider.getValue());
+
+		} else {
+			JOptionPane.showMessageDialog(null,
+					"Por favor, seleccione un sistema operativo y una o más especialidades.");
+		}
 	}
 }

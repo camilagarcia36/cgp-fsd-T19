@@ -27,9 +27,6 @@ public class FormVista extends JFrame {
 	private JCheckBox chckDiseño;
 	private JCheckBox chckProgramacion;
 	private JCheckBox chckAdm;
-	private boolean seleccionadoDiseño = false;
-	private boolean seleccionadoProgramacion = false;
-	private boolean seleccionadoAdm = false;
 
 	/**
 	 * Create the frame.
@@ -110,6 +107,7 @@ public class FormVista extends JFrame {
 
 	}
 
+	
 	public void comprobarDatos() {
 		// Compruebo cual esta seleccionado y le doy valor al string que he creado para
 		// luego mostrarlo en pantalla.
@@ -124,14 +122,34 @@ public class FormVista extends JFrame {
 			valorRB = iosRB.getText();
 		}
 
-		// Compruebo que este seleccionado y si lo esta muestro los datos. Si no, doy un
-		// mensaje por Joption pane de que se tiene que rellenar los datos.
-		if (!valorRB.isEmpty()) {
-			System.out.println("Sistema operativo seleccionado: " + valorRB);
+		 //Creo un arraylist para guardar los valores de los check box. 
+	    ArrayList<String> valoresCB = new ArrayList<String>();
+	    
+	    if (chckDiseño.isSelected()) {
+	    	System.out.println(chckDiseño.getText());
 
-		} else {
-			JOptionPane.showMessageDialog(null,
-					"Por favor, seleccione un sistema operativo y una o más especialidades.");
-		}
+	        valoresCB.add(chckDiseño.getText());
+	    }
+	    if (chckProgramacion.isSelected()) {
+	    	System.out.println(chckProgramacion.getText());
+
+	        valoresCB.add(chckProgramacion.getText());
+	    }
+	    
+	    if (chckAdm.isSelected()) {
+	    	System.out.println(chckAdm.getText());
+	        valoresCB.add(chckAdm.getText());
+	    }
+	    
+	  //Compruebo que este seleccionado y si lo esta muestro los datos. Si no, doy un mensaje por Joption pane de que se tiene que rellenar los datos. 
+	    if (valorRB != null && !valorRB.isEmpty() && valoresCB != null && !valoresCB.isEmpty()) {
+	        System.out.println("Sistema operativo seleccionado: " + valorRB);
+	        System.out.println("Especialidades seleccionadas:");
+	        for (String valor : valoresCB) {
+	            System.out.println("- " + valor);
+	        }
+	    } else {
+	        JOptionPane.showMessageDialog(null, "Por favor, seleccione un sistema operativo y una o más especialidades.");
+	    }
 	}
 }
